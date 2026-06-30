@@ -1,5 +1,6 @@
 import { api } from "./api";
 import type { Emission, EmisiData } from "@/types/carbon";
+import { isDemoMode } from "@/lib/demo-mode";
 
 export interface NewEmissionDTO {
   category: Emission["category"];
@@ -41,6 +42,7 @@ const MOCK_BREAKDOWN: BreakdownData[] = [
 
 export const carbonService = {
   getEmissions: async (): Promise<Emission[]> => {
+    if (isDemoMode) return MOCK_EMISSIONS;
     try {
       return await api.get<Emission[]>("/carbon/emissions");
     } catch {
@@ -49,6 +51,7 @@ export const carbonService = {
   },
 
   addEmission: async (data: NewEmissionDTO): Promise<Emission> => {
+    if (isDemoMode) return { ...data, id: `e_${Date.now()}`, date: new Date() };
     try {
       return await api.post<Emission>("/carbon/add", data);
     } catch {
@@ -57,6 +60,7 @@ export const carbonService = {
   },
 
   getWeeklyTrend: async (): Promise<EmisiData[]> => {
+    if (isDemoMode) return MOCK_WEEKLY;
     try {
       return await api.get<EmisiData[]>("/carbon/trend/weekly");
     } catch {
@@ -65,6 +69,7 @@ export const carbonService = {
   },
 
   getMonthlyTrend: async (): Promise<EmisiData[]> => {
+    if (isDemoMode) return MOCK_MONTHLY;
     try {
       return await api.get<EmisiData[]>("/carbon/trend/monthly");
     } catch {
@@ -73,6 +78,7 @@ export const carbonService = {
   },
 
   getBreakdown: async (): Promise<BreakdownData[]> => {
+    if (isDemoMode) return MOCK_BREAKDOWN;
     try {
       return await api.get<BreakdownData[]>("/carbon/breakdown");
     } catch {
