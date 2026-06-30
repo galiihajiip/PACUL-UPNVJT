@@ -1,6 +1,8 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { api } from "@/services/api";
+import { isDemoMode } from "@/lib/demo-mode";
+import { demoAuth } from "@/lib/demo-auth";
 import Cookies from "js-cookie";
 
 export interface GovUser {
@@ -30,6 +32,26 @@ export const useGovAuthStore = create<GovAuthStore>()(
 
       login: async (email, password) => {
         try {
+          if (isDemoMode) {
+            const response = await demoAuth.govLogin(email, password);
+            Cookies.set("pacul_token", response.token, {
+              expires: 7,
+              sameSite: "lax",
+              secure: window.location.protocol === "https:",
+            });
+            localStorage.setItem("pacul_token", response.token);
+            const u = response.user;
+            set({
+              user: {
+                ...u,
+                governmentUnit: u.governmentUnit ?? u.government_unit,
+                avatarInitials: u.avatarInitials ?? u.name.trim().split(/\s+/).slice(0, 2).map((w) => w[0]).join("").toUpperCase(),
+              },
+              isAuthenticated: true,
+            });
+            return { success: true };
+          }
+
           const response = await api.post<{ user: GovUser; token: string }>("/auth/gov/login", {
             email,
             password,
