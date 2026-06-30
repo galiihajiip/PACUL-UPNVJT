@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
+import { DEMO_STARTING_XP } from "@/lib/demo-mode";
 
 export interface XPEvent {
   id: string;
@@ -37,10 +38,10 @@ function calcXpToNext(level: number, totalXp: number): number {
 }
 
 const INITIAL_STATE = {
-  xp: 0,
-  totalXpEarned: 0,
-  level: 1,
-  xpToNextLevel: 100,
+  xp: DEMO_STARTING_XP,
+  totalXpEarned: DEMO_STARTING_XP,
+  level: 3,
+  xpToNextLevel: calcXpToNext(3, DEMO_STARTING_XP),
   carbonSaved: 0,
   challengesCompleted: 0,
   rank: 0,
@@ -97,8 +98,21 @@ export const useUserStore = create<UserStore>()(
     }),
     {
       name: "pacul-user-store",
-      version: 3,
+      version: 4,
       storage: createJSONStorage(() => localStorage),
+      migrate: (persisted, version) => {
+        const state = persisted as Partial<typeof INITIAL_STATE>;
+        if (version < 4 && (state.xp ?? 0) < DEMO_STARTING_XP) {
+          return {
+            ...state,
+            xp: DEMO_STARTING_XP,
+            totalXpEarned: Math.max(state.totalXpEarned ?? 0, DEMO_STARTING_XP),
+            level: state.level && state.level > 1 ? state.level : 3,
+            xpToNextLevel: calcXpToNext(3, DEMO_STARTING_XP),
+          };
+        }
+        return state;
+      },
       partialize: (s) => ({
         xp: s.xp,
         totalXpEarned: s.totalXpEarned,
