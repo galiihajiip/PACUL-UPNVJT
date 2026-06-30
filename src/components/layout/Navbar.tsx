@@ -272,6 +272,7 @@ export default function Navbar() {
                 </Link>
                 <p className="mt-3 text-center text-xs text-white/40">© 2026 PACUL · {teamConfig.name}</p>
                 <p className="mt-0.5 text-center text-[10px] text-white/30">{teamConfig.competition}</p>
+                <p className="text-center text-[10px] text-white/25">Subtema: {teamConfig.subTheme}</p>
               </div>
             </motion.div>
           </>

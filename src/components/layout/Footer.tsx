@@ -14,6 +14,7 @@ const FEATURE_LINKS = [
 const ABOUT_LINKS = [
   { label: "Tentang PACUL", href: "#" },
   { label: teamConfig.competition, href: "#" },
+  { label: `Subtema: ${teamConfig.subTheme}`, href: "#" },
   { label: teamConfig.name, href: "#" },
   { label: teamConfig.university, href: "#" },
 ];
@@ -57,6 +58,9 @@ export default function Footer() {
             </p>
             <p className="text-[11px] font-medium text-white/40">
               {teamConfig.competition}
+            </p>
+            <p className="text-[11px] text-white/35">
+              Subtema: {teamConfig.subTheme}
             </p>
             {/* SDGs badges */}
             <div className="flex flex-wrap gap-2 mt-1">

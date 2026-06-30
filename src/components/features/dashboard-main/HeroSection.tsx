@@ -234,6 +234,15 @@ export default function HeroSection() {
             >
               {teamConfig.name} · {teamConfig.competition}
             </motion.p>
+            <motion.p
+              variants={fadeIn}
+              initial="hidden"
+              animate="visible"
+              custom={0.18}
+              className="mb-4 text-[11px] text-white/40"
+            >
+              Subtema: {teamConfig.subTheme}
+            </motion.p>
 
             {/* Heading */}
             <motion.h1

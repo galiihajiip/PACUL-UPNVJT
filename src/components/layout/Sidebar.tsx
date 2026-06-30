@@ -65,6 +65,7 @@ function SidebarContent({ onLinkClick }: { onLinkClick?: () => void }) {
         </Link>
         <p className="text-xs text-gray-400">© 2026 PACUL · {teamConfig.name}</p>
         <p className="text-[10px] text-gray-400/80">{teamConfig.competition}</p>
+        <p className="text-[10px] text-gray-400/70">Subtema: {teamConfig.subTheme}</p>
       </div>
     </div>
   );
