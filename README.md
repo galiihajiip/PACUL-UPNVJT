@@ -1,6 +1,6 @@
 # 🌿 PACUL — Platform Aksi Komunitas Untuk Lingkungan
 
-**Titik Nadir Team · Web Design Competition 2026**  
+**3 Sushi Rolls Team · National PEKAN IT Competition 2026**  
 **Sub-theme: Social Innovation & Community-Based Applications**
 
 ---
@@ -232,17 +232,17 @@ PACUL dapat diinstall sebagai aplikasi di perangkat mobile maupun desktop:
 
 ---
 
-## 👥 Tim Titik Nadir
+## 👥 3 Sushi Rolls Team
 
 | Nama | Role |
 |------|------|
-| Galih Aji IP | Lead Developer & AI Engineer |
-| Cleo Firman Ferdinand | UI/UX Designer |
-| Muhammad Ananda Hariadi | Fullstack Web Developer |
+| Galih Aji Pangestu | Lead Developer |
+| Nashwa Atika Kusuma Ramadhani | UI/UX Designer |
+| Adristha Arshanti Widyadhari | Fullstack Web Developer |
 
 ---
 
 ## 📄 Lisensi
 
-© 2026 Titik Nadir Team. All rights reserved.  
-Built with 💚 for Web Design Competition 2026.
+© 2026 3 Sushi Rolls Team. All rights reserved.  
+Built with 💚 for National PEKAN IT Competition 2026 · UPN Veteran Jawa Timur.
