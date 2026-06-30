@@ -5,9 +5,18 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import Cookies from "js-cookie";
 import { toast } from "sonner";
 import { useAuthStore } from "@/store/auth.store";
+import { useUserStore } from "@/store/userStore";
 import { authService } from "@/services/auth.service";
+import { isDemoMode, DEMO_STARTING_XP } from "@/lib/demo-mode";
 import type { RegisterDTO, LoginDTO } from "@/services/auth.service";
 import type { ApiError } from "@/services/api";
+
+function syncDemoXp(user: { current_xp?: number; total_xp?: number; level?: number }) {
+  const xp = isDemoMode ? DEMO_STARTING_XP : (user.current_xp ?? DEMO_STARTING_XP);
+  const total = isDemoMode ? DEMO_STARTING_XP : (user.total_xp ?? xp);
+  const level = user.level ?? 3;
+  useUserStore.getState().syncFromServer({ current_xp: xp, total_xp: total, level });
+}
 
 export function useAuth() {
   const router = useRouter();
@@ -25,6 +34,7 @@ export function useAuth() {
       });
       localStorage.setItem("pacul_token", data.token);
       setUser(data.user);
+      syncDemoXp(data.user);
       toast.success(`Selamat datang, ${data.user.name}! 🌿`);
       router.push("/dashboard");
     },
@@ -43,6 +53,7 @@ export function useAuth() {
       });
       localStorage.setItem("pacul_token", data.token);
       setUser(data.user);
+      syncDemoXp(data.user);
       toast.success(data.message || "Registrasi berhasil! 🌿");
       router.push("/dashboard");
     },
