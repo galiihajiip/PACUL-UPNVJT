@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
+import { DEMO_OCR_RESULT } from "@/lib/demo-ocr";
 
 const VISION_ENDPOINT = "https://vision.googleapis.com/v1/images:annotate";
+const DEMO_MODE = process.env.NEXT_PUBLIC_DEMO_MODE !== "false";
 
 /* ── Regex patterns for PLN bill fields ── */
 const PATTERNS = {
@@ -39,11 +41,6 @@ export async function POST(req: NextRequest) {
   console.log("[OCR] POST called, key length:", VISION_API_KEY.length);
 
   try {
-    if (!VISION_API_KEY) {
-      console.error("[OCR] No API key found");
-      return NextResponse.json({ success: false, message: "Vision API key tidak dikonfigurasi" }, { status: 500 });
-    }
-
     const formData = await req.formData();
     const file = formData.get("image") as File | null;
     if (!file) {
@@ -52,6 +49,15 @@ export async function POST(req: NextRequest) {
     }
 
     console.log("[OCR] File received:", file.name, file.size, "bytes", file.type);
+
+    /* Demo mode — return dummy PLN bill data */
+    if (DEMO_MODE || !VISION_API_KEY) {
+      await new Promise((r) => setTimeout(r, 1200));
+      return NextResponse.json({
+        ...DEMO_OCR_RESULT,
+        message: "Hasil demo — mode lokal tanpa Google Vision API",
+      });
+    }
 
     /* Convert to base64 */
     const bytes = await file.arrayBuffer();
