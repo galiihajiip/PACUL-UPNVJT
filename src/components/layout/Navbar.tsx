@@ -10,6 +10,7 @@ import { cn } from "@/utils/cn";
 import { useAuthStore } from "@/store/auth.store";
 import { useAuth } from "@/hooks/useAuth";
 import { PUBLIC_NAV } from "@/config/navigation";
+import { teamConfig } from "@/config/site";
 
 const MOCK_NOTIFS = [
   { id: "n1", text: "Tantangan 'Zero Waste' berakhir dalam 2 hari!", time: "1j lalu", read: false },
@@ -269,7 +270,8 @@ export default function Navbar() {
                 >
                   DASHBOARD
                 </Link>
-                <p className="mt-3 text-center text-xs text-white/40">© 2026 PACUL · Titik Nadir</p>
+                <p className="mt-3 text-center text-xs text-white/40">© 2026 PACUL · {teamConfig.name}</p>
+                <p className="mt-0.5 text-center text-[10px] text-white/30">{teamConfig.competition}</p>
               </div>
             </motion.div>
           </>

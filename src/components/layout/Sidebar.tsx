@@ -7,6 +7,7 @@ import { useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { X, Home } from "lucide-react";
 import { cn } from "@/utils/cn";
+import { teamConfig } from "@/config/site";
 import { useStepTrackerStore } from "@/store/stepTracker.store";
 import { DASHBOARD_NAV } from "@/config/navigation";
 
@@ -62,7 +63,8 @@ function SidebarContent({ onLinkClick }: { onLinkClick?: () => void }) {
           <Home size={14} className="shrink-0" />
           Kembali ke Beranda
         </Link>
-        <p className="text-xs text-gray-400">© 2026 PACUL · Titik Nadir</p>
+        <p className="text-xs text-gray-400">© 2026 PACUL · {teamConfig.name}</p>
+        <p className="text-[10px] text-gray-400/80">{teamConfig.competition}</p>
       </div>
     </div>
   );
