@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Github, Instagram, Linkedin, Mail, MapPin } from "lucide-react";
+import { teamConfig } from "@/config/site";
 
 const FEATURE_LINKS = [
   { label: "Carbon Tracker", href: "/dashboard/tracker" },
@@ -12,9 +13,9 @@ const FEATURE_LINKS = [
 
 const ABOUT_LINKS = [
   { label: "Tentang PACUL", href: "#" },
-  { label: "Tim Titik Nadir", href: "#" },
-  { label: "UPN Veteran Jawa Timur", href: "#" },
-  { label: "Roadmap 2030", href: "#" },
+  { label: teamConfig.competition, href: "#" },
+  { label: teamConfig.name, href: "#" },
+  { label: teamConfig.university, href: "#" },
 ];
 
 const SDGS = [
@@ -40,7 +41,7 @@ export default function Footer() {
     >
       {/* Main grid */}
       <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 sm:py-14 md:px-[120px] md:py-16">
-        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-5">
 
           {/* Col 1 — Brand */}
           <div className="flex flex-col gap-4">
@@ -52,7 +53,10 @@ export default function Footer() {
             </p>
             <p className="text-xs text-white/50 leading-relaxed">
               Platform Aksi Kolektif untuk Lingkungan<br />
-              Jawa Timur, Indonesia
+              {teamConfig.university} · Jawa Timur
+            </p>
+            <p className="text-[11px] font-medium text-white/40">
+              {teamConfig.competition}
             </p>
             {/* SDGs badges */}
             <div className="flex flex-wrap gap-2 mt-1">
@@ -84,7 +88,20 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Col 3 — Tentang */}
+          {/* Col 3 — Tim */}
+          <div className="flex flex-col gap-3">
+            <h4 className="text-sm font-semibold text-white">{teamConfig.name}</h4>
+            <ul className="flex flex-col gap-2.5">
+              {teamConfig.members.map((member) => (
+                <li key={member.name} className="text-sm text-white/70">
+                  <p className="font-medium text-white/85">{member.name}</p>
+                  <p className="text-xs text-white/50">{member.role}</p>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Col 4 — Tentang */}
           <div className="flex flex-col gap-3">
             <h4 className="text-sm font-semibold text-white">Tentang</h4>
             <ul className="flex flex-col gap-2">
@@ -96,7 +113,7 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Col 4 — Kontak */}
+          {/* Col 5 — Kontak */}
           <div className="flex flex-col gap-3">
             <h4 className="text-sm font-semibold text-white">Kontak</h4>
             <ul className="flex flex-col gap-3">
@@ -139,13 +156,13 @@ export default function Footer() {
       {/* Bottom bar */}
       <div className="border-t border-white/10">
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-2 px-4 py-4 text-xs text-white/50 sm:flex-row sm:gap-3 sm:px-6 md:px-[120px]">
-          <p>© 2026 PACUL — Titik Nadir Team. All rights reserved.</p>
+          <p>© 2026 PACUL — {teamConfig.name}. All rights reserved.</p>
           <div className="flex items-center gap-4">
             <span className="cursor-default text-white/40">Privacy Policy</span>
             <span className="text-white/20">|</span>
             <span className="cursor-default text-white/40">Terms of Use</span>
           </div>
-          <p>Made with 💚 for Jawa Timur</p>
+          <p>Made with 💚 for {teamConfig.competition}</p>
         </div>
       </div>
     </footer>
