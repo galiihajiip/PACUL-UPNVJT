@@ -13,7 +13,7 @@ const _axios = axios.create({
 _axios.interceptors.request.use((config) => {
   if (typeof window !== "undefined") {
     const token = localStorage.getItem("pacul_token");
-    if (token && token !== "guest_token_demo") {
+    if (token && token !== "guest_token_demo" && !token.startsWith("demo_")) {
       config.headers.Authorization = `Bearer ${token}`;
     }
   }
@@ -27,11 +27,13 @@ _axios.interceptors.response.use(
     const status = error.response?.status;
 
     if (status === 401 && typeof window !== "undefined") {
-      localStorage.removeItem("pacul_token");
-      localStorage.removeItem("pacul-auth");
-      // Only redirect if not already on login page
-      if (!window.location.pathname.includes("/login")) {
-        window.location.href = "/login";
+      const token = localStorage.getItem("pacul_token");
+      if (!token?.startsWith("demo_") && token !== "guest_token_demo") {
+        localStorage.removeItem("pacul_token");
+        localStorage.removeItem("pacul-auth");
+        if (!window.location.pathname.includes("/login")) {
+          window.location.href = "/login";
+        }
       }
     }
 
