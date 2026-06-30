@@ -1,5 +1,6 @@
 import { api } from "./api";
 import type { Post, PostType } from "@/components/features/collaboration-wall/PostCard";
+import { isDemoMode, demoDelay } from "@/lib/demo-mode";
 
 export interface NewPostDTO {
   content: string;
@@ -48,6 +49,7 @@ const MOCK_POSTS: Post[] = [
 
 export const collaborationService = {
   getPosts: async (page: number = 1): Promise<Post[]> => {
+    if (isDemoMode) return MOCK_POSTS;
     try {
       return await api.get<Post[]>("/collaboration/posts", { params: { page } });
     } catch {
@@ -56,6 +58,21 @@ export const collaborationService = {
   },
 
   createPost: async (data: NewPostDTO): Promise<Post> => {
+    if (isDemoMode) {
+      await demoDelay(300);
+      return {
+        id: `p_${Date.now()}`,
+        author: { name: "Aditya Pratama", initials: "AP", location: "Surabaya" },
+        timeAgo: "Baru saja",
+        type: data.type,
+        content: data.content,
+        tags: data.tags,
+        likes: 0,
+        replies: 0,
+        isVerifiedAction: data.isVerifiedAction,
+        verifiedActionLabel: data.verifiedActionLabel,
+      };
+    }
     try {
       return await api.post<Post>("/collaboration/posts", data);
     } catch {
@@ -75,6 +92,7 @@ export const collaborationService = {
   },
 
   likePost: async (postId: string): Promise<void> => {
+    if (isDemoMode) return;
     try {
       await api.post(`/collaboration/posts/${postId}/like`);
     } catch {
@@ -83,6 +101,7 @@ export const collaborationService = {
   },
 
   addComment: async (postId: string, content: string): Promise<void> => {
+    if (isDemoMode) return;
     try {
       await api.post(`/collaboration/posts/${postId}/comments`, { content });
     } catch {
