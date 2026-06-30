@@ -10,3 +10,14 @@ export const siteConfig = {
     process.env.NEXT_PUBLIC_MAP_TILE_URL ??
     "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
 };
+
+export const teamConfig = {
+  name: "3 Sushi Rolls Team",
+  competition: "National PEKAN IT Competition 2026",
+  university: "UPN Veteran Jawa Timur",
+  members: [
+    { name: "Galih Aji Pangestu", role: "Lead Developer" },
+    { name: "Nashwa Atika Kusuma Ramadhani", role: "UI/UX Designer" },
+    { name: "Adristha Arshanti Widyadhari", role: "Fullstack Web Developer" },
+  ],
+} as const;
