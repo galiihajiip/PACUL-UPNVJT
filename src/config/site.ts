@@ -14,6 +14,7 @@ export const siteConfig = {
 export const teamConfig = {
   name: "3 Sushi Rolls Team",
   competition: "National PEKAN IT Competition 2026",
+  subTheme: "Lingkungan, Energi, dan Keberlanjutan",
   university: "UPN Veteran Jawa Timur",
   members: [
     { name: "Galih Aji Pangestu", role: "Lead Developer" },
