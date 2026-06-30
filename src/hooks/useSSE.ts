@@ -20,7 +20,7 @@ export function useSSE(onNotification?: (data: unknown) => void) {
 
   useEffect(() => {
     const token = getToken();
-    if (!token || token === "guest_token_demo") return;
+    if (!token || token === "guest_token_demo" || token.startsWith("demo_")) return;
 
     let abortController: AbortController | null = null;
     let timeoutId: ReturnType<typeof setTimeout> | null = null;

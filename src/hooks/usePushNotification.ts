@@ -10,10 +10,10 @@ function urlBase64ToUint8Array(base64String: string): Uint8Array {
 }
 
 async function sendSubscriptionToServer(subscription: PushSubscription) {
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000/api";
   const token = document.cookie.match(/pacul_token=([^;]+)/)?.[1];
-  if (!token) return;
+  if (!token || token.startsWith("demo_") || token === "guest_token_demo") return;
 
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000/api";
   await fetch(`${apiUrl}/push/subscribe`, {
     method: "POST",
     headers: {
