@@ -1,5 +1,6 @@
 import { api } from "./api";
 import type { Hotspot } from "@/components/features/local-impact-map/MapContainer";
+import { isDemoMode } from "@/lib/demo-mode";
 
 export interface DistrictDetail {
   id: string;
@@ -36,6 +37,11 @@ const MOCK_DISTRICT_DETAIL: DistrictDetail = {
 
 export const mapService = {
   getMapData: async (category?: string, month?: string): Promise<Hotspot[]> => {
+    if (isDemoMode) {
+      return category
+        ? MOCK_HOTSPOTS.filter((h) => h.category === category)
+        : MOCK_HOTSPOTS;
+    }
     try {
       return await api.get<Hotspot[]>("/map/data", { params: { category, month } });
     } catch {
@@ -46,6 +52,7 @@ export const mapService = {
   },
 
   getDistrictDetail: async (districtId: string): Promise<DistrictDetail> => {
+    if (isDemoMode) return { ...MOCK_DISTRICT_DETAIL, id: districtId };
     try {
       return await api.get<DistrictDetail>(`/map/district/${districtId}`);
     } catch {
