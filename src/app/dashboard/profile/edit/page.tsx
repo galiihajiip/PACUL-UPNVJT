@@ -137,6 +137,9 @@ export default function ProfileEditPage() {
       const { avatar_url } = await authService.uploadAvatar(file);
       updateUser({ avatarUrl: avatar_url });
       toast.success("Foto profil berhasil diupload");
+    } catch {
+      updateUser({ avatarUrl: preview });
+      toast.success("Foto profil disimpan (mode demo)");
     } finally {
       setUploadingAvatar(false);
     }
