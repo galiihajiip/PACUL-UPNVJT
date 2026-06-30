@@ -6,6 +6,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { CheckCircle, Users, Leaf, TrendingDown, ArrowDown, X } from "lucide-react";
 import { useAuthStore } from "@/store/auth.store";
+import { teamConfig } from "@/config/site";
 
 /* ── mini animation variants ── */
 const fadeIn = {
@@ -224,6 +225,15 @@ export default function HeroSection() {
                 GERAKAN IKLIM KOLEKTIF
               </span>
             </motion.div>
+            <motion.p
+              variants={fadeIn}
+              initial="hidden"
+              animate="visible"
+              custom={0.15}
+              className="mb-4 text-xs text-white/50"
+            >
+              {teamConfig.name} · {teamConfig.competition}
+            </motion.p>
 
             {/* Heading */}
             <motion.h1
