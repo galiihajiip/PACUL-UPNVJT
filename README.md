@@ -1,7 +1,7 @@
 # 🌿 PACUL — Platform Aksi Komunitas Untuk Lingkungan
 
 **3 Sushi Rolls Team · National PEKAN IT Competition 2026**  
-**Sub-theme: Social Innovation & Community-Based Applications**
+**Sub-theme: Lingkungan, Energi, dan Keberlanjutan**
 
 ---
 
