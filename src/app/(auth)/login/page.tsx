@@ -107,13 +107,13 @@ export default function LoginPage() {
             ) : (
               <>
                 <LogIn size={18} />
-                Masuk Sekarang
+                Coba Akun Demo
               </>
             )}
           </motion.button>
 
           <p className="mt-3 text-center text-[11px] text-gray-400">
-            Mode demo lokal · 500 XP · tanpa backend
+            Akun demo cepat · pakai email &amp; password kamu di bawah untuk akun yang sudah didaftarkan
           </p>
 
           {/* Optional manual login */}

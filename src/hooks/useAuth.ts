@@ -54,8 +54,7 @@ export function useAuth() {
       localStorage.setItem("pacul_token", data.token);
       setUser(data.user);
       syncDemoXp(data.user);
-      toast.success(data.message || "Registrasi berhasil! 🌿");
-      router.push("/dashboard");
+      toast.success(`Selamat datang, ${data.user.name}! 🌿`);
     },
     onError: (error: ApiError) => {
       const firstError = Object.values(error.errors || {})[0]?.[0];

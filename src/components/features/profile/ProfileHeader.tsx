@@ -13,8 +13,8 @@ export default function ProfileHeader() {
   const ecoPoints = useUserStore((s) => s.xp);
 
   const displayUser = storeUser ?? {
-    avatarInitials: "AP",
-    name: "Aditya Pratama",
+    avatarInitials: "PU",
+    name: "Pengguna PACUL",
     location: "Surabaya, Indonesia",
     level: 12,
     xp: 750,

@@ -1,6 +1,18 @@
 import { api } from "./api";
 import type { Post, PostType } from "@/components/features/collaboration-wall/PostCard";
 import { isDemoMode, demoDelay } from "@/lib/demo-mode";
+import { useAuthStore } from "@/store/auth.store";
+import { makeInitials } from "@/utils/formatters";
+
+function currentPostAuthor() {
+  const user = useAuthStore.getState().user;
+  const name = user?.name ?? "Pengguna PACUL";
+  return {
+    name,
+    initials: user?.avatarInitials ?? makeInitials(name),
+    location: user?.location ?? user?.city ?? "Surabaya",
+  };
+}
 
 export interface NewPostDTO {
   content: string;
@@ -62,7 +74,7 @@ export const collaborationService = {
       await demoDelay(300);
       return {
         id: `p_${Date.now()}`,
-        author: { name: "Aditya Pratama", initials: "AP", location: "Surabaya" },
+        author: currentPostAuthor(),
         timeAgo: "Baru saja",
         type: data.type,
         content: data.content,
@@ -78,7 +90,7 @@ export const collaborationService = {
     } catch {
       return {
         id: `p_${Date.now()}`,
-        author: { name: "Aditya Pratama", initials: "AP", location: "Surabaya" },
+        author: currentPostAuthor(),
         timeAgo: "Baru saja",
         type: data.type,
         content: data.content,

@@ -11,7 +11,7 @@ interface StoredUser extends User {
 
 const BUILTIN_DEMO: StoredUser = {
   id: "demo",
-  name: "Aditya Pratama",
+  name: "Akun Demo",
   email: "demo@pacul.app",
   password: "Demo1234!",
   level: 3,

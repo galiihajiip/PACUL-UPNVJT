@@ -2,13 +2,17 @@
 
 import { motion } from "framer-motion";
 import { Star, TrendingUp } from "lucide-react";
-
-const XP_CURRENT = 2340;
-const XP_NEXT_LEVEL = 3000;
-const LEVEL = 7;
-const xpPct = Math.round((XP_CURRENT / XP_NEXT_LEVEL) * 100);
+import { useAuthStore } from "@/store/auth.store";
+import { useUserStore } from "@/store/userStore";
 
 export default function WelcomeBanner() {
+  const user = useAuthStore((s) => s.user);
+  const xpFromStore = useUserStore((s) => s.xp);
+  const displayName = user?.name ?? "Pengguna PACUL";
+  const LEVEL = user?.level ?? 3;
+  const XP_CURRENT = user?.current_xp ?? user?.xp ?? xpFromStore ?? 500;
+  const XP_NEXT_LEVEL = Math.max(LEVEL * 1000, XP_CURRENT + 1);
+  const xpPct = Math.round((XP_CURRENT / XP_NEXT_LEVEL) * 100);
   return (
     <motion.div
       initial={{ opacity: 0, y: -16 }}
@@ -27,7 +31,7 @@ export default function WelcomeBanner() {
         {/* Left: greeting */}
         <div>
           <p className="text-sm font-medium text-white/70">Selamat datang kembali 👋</p>
-          <h1 className="mt-0.5 text-2xl font-bold">Aditya Dwi</h1>
+          <h1 className="mt-0.5 text-2xl font-bold">{displayName}</h1>
           <p className="mt-1 flex items-center gap-1.5 text-sm text-white/70">
             <TrendingUp size={14} />
             Kamu telah menyelamatkan <span className="font-semibold text-[#7AC74F]">12.4 ton CO₂</span> bulan ini
