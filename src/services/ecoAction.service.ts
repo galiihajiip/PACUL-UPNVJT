@@ -1,6 +1,7 @@
 import { api } from "./api";
 import type { EcoChallenge, Badge } from "@/types/eco-action";
 import type { LeaderboardEntry } from "@/store/ecoAction.store";
+import { isDemoMode, demoDelay } from "@/lib/demo-mode";
 
 export interface RewardItem {
   id: string;
@@ -41,6 +42,7 @@ const MOCK_MARKETPLACE: RewardItem[] = [
 
 export const ecoActionService = {
   getChallenges: async (): Promise<EcoChallenge[]> => {
+    if (isDemoMode) return MOCK_CHALLENGES;
     try {
       return await api.get<EcoChallenge[]>("/eco-action/challenges");
     } catch {
@@ -49,6 +51,7 @@ export const ecoActionService = {
   },
 
   joinChallenge: async (id: string): Promise<void> => {
+    if (isDemoMode) { await demoDelay(200); return; }
     try {
       await api.post(`/eco-action/challenges/${id}/join`);
     } catch {
@@ -57,6 +60,10 @@ export const ecoActionService = {
   },
 
   uploadProof: async (formData: FormData): Promise<{ status: string; xpAwarded: number }> => {
+    if (isDemoMode) {
+      await demoDelay(500);
+      return { status: "success", xpAwarded: 100 };
+    }
     try {
       return await api.post("/eco-action/upload", formData, {
         headers: { "Content-Type": "multipart/form-data" },
@@ -67,6 +74,7 @@ export const ecoActionService = {
   },
 
   getLeaderboard: async (): Promise<LeaderboardEntry[]> => {
+    if (isDemoMode) return MOCK_LEADERBOARD;
     try {
       return await api.get<LeaderboardEntry[]>("/eco-action/leaderboard");
     } catch {
@@ -75,6 +83,7 @@ export const ecoActionService = {
   },
 
   getMarketplace: async (): Promise<RewardItem[]> => {
+    if (isDemoMode) return MOCK_MARKETPLACE;
     try {
       return await api.get<RewardItem[]>("/eco-action/marketplace");
     } catch {
@@ -83,6 +92,10 @@ export const ecoActionService = {
   },
 
   redeemReward: async (id: string): Promise<{ success: boolean; remainingPoints: number }> => {
+    if (isDemoMode) {
+      await demoDelay(300);
+      return { success: true, remainingPoints: 3900 };
+    }
     try {
       return await api.post(`/eco-action/marketplace/${id}/redeem`);
     } catch {
